@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Illuminate\Support\Facades\Auth;
 class AdminMiddleware
 {
     /**
@@ -13,8 +13,13 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+   public function handle($request, Closure $next)
     {
-        return $next($request);
+        if (Auth::check() && Auth::user()->hasRole('Administrador')) {
+            return $next($request);
+        }
+
+        // Redirige a una página de acceso no autorizado o realiza otra acción
+        return redirect('/acceso-no-autorizado');
     }
 }
