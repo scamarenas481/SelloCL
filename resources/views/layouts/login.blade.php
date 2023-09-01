@@ -9,113 +9,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link rel="stylesheet" href="/css/login.css">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            /* Fondo gris claro */
-        }
 
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
-            /* Fondo gris claro */
-        }
-
-        .login-content {
-            height: auto;
-            max-width: 1000px;
-            width: 100%;
-            padding: 30px;
-            background-color: #ffffff;
-            /* Fondo blanco */
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
-            margin-top: 10px;
-        }
-
-        .image-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #002652;
-            /* Azul oscuro */
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .form-container {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .card {
-            width: 100%;
-            border: none;
-        }
-
-        .card-header {
-            background-color: #ff640c;
-            /* Naranja */
-            color: #ffffff;
-            /* Texto blanco */
-            border: none;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .btn-primary {
-            background-color: #ff640c;
-            /* Naranja */
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #e3560e;
-            /* Naranja más oscuro al pasar el ratón */
-        }
-
-        /* Estilos responsivos */
-        @media (max-width: 768px) {
-            .login-content {
-                flex-direction: column-reverse;
-                align-items: center;
-            }
-
-            .image-container {
-                display: none;
-            }
-
-            .form-container {
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-            }
-        }
-    </style>
 </head>
 
 <body>

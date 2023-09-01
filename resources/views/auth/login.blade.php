@@ -3,10 +3,13 @@
 @section('content')
     <div class="login-container">
         <div class="login-content">
+
             <div class="row d-flex align-items-center justify-content-center">
+
                 <!-- División para el formulario -->
                 <div class="col-md-6">
                     <div class="card">
+                        
                         <div class="logo-container" style="margin: auto">
                             <img src="/images/logoCL1sello.svg" alt="Construrama Casa Lupita Logo">
                         </div>
@@ -64,7 +67,7 @@
                 <!-- División para la imagen -->
                 <div class="col-md-6 d-none d-md-block">
                     <div class="image-container">
-                        <img src="/images/20220920_170911-1.jpg" alt="Construrama Casa Lupita Logo">
+                        <img src="/images/289866653_368360775439540_9027140997671848863_n.jpg" alt="Construrama Casa Lupita Logo">
                     </div>
                 </div>
             </div>
