@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +15,9 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js','resources/css/app.css'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
 </head>
+
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
@@ -41,53 +43,68 @@
             <div class="offcanvas-body">
                 <!-- Aquí puedes agregar el contenido del sidebar, por ejemplo, enlaces a diferentes secciones -->
                 <ul class="navbar-nav">
-                    <li class="nav-item {{ request()->is('admin.home') ? 'active' : '' }}">
-                        <a class="nav-link {{ request()->is('admin') ? 'nav-link-active' : '' }}"
-                            href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('usuarios') ? 'active' : '' }}">
-                        <a class="nav-link {{ request()->is('usuarios') ? 'nav-link-active' : '' }}"
-                            href="#">Usuarios</a>
-                    </li>
-                    <li class="nav-item {{ request()->is('productos-nuevos.crear') ? 'active' : '' }}">
-                        <a class="nav-link {{ request()->is('productos-nuevos.crear') ? 'nav-link-active' : '' }}"
-                            href="#">Productos Solicitados</a>
-                    </li>
-
-
                     @auth
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ auth()->user()->name }}
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('selectRole') }}">Seleccionar Rol</a></li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item">Cerrar Sesión</button>
-                                </form>
+                        <!-- AQUI VAMOS A PORNER EL CONTENIDO DE LOS INICIOS DE CADA TIPO DE ROL -->
+                        @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Ventas')
+                        <li class="nav-item align-vertical">
+                                <a class="navbar-brand" href="{{ url('/') }}">
+                                    <img name="logonv" class="logonv" src="{{ asset('images/sello-de-la-casa.png') }}" alt="Logo de la Empresa">
+                                </a>
                             </li>
-                        </ul>
-                    </li>
-
-                    @if (auth()->user()->activeRole && (auth()->user()->activeRole->name === 'Ventas'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('vendedor.home') }}">Inicio Vendedor</a>
+                        @endif
+                        @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Administrador')
+                        <li class="nav-item align-vertical">
+                            <a class="navbar-brand" href="{{ url('/') }}">
+                                <img name="logonv" class="logonv" src="{{ asset('images/sello-de-la-casa.png') }}" alt="Logo de la Empresa">
+                            </a>
                         </li>
-                    @endif
-
-                    @if (auth()->user()->activeRole && (auth()->user()->activeRole->name === 'Administrador'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.home') }}">Inicio Admin</a>
+                        @endif
+                        <li class="nav-item align-vertical">
+                            <span class="navbar-text">Rol: {{ auth()->user()->activeRole->name }}</span>
                         </li>
-                    @endif
+                        @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Ventas')
+                            <li class="nav-item {{ request()->is('productos-nuevos.crear') ? 'active' : '' }}">
+                                <a class="nav-link {{ request()->is('productos-nuevos.crear') ? 'nav-link-active' : '' }}"
+                                    href="#">Productos Solicitados</a>
+                            </li>
+                        @endif
 
-                    <li class="nav-item">
-                        <span class="navbar-text">Rol: {{ auth()->user()->activeRole->name }}</span>
-                    </li>
-                @endauth
+                        @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Administrador')
+                            <li class="nav-item {{ request()->is('usuarios') ? 'active' : '' }}">
+                                <a class="nav-link {{ request()->is('usuarios') ? 'nav-link-active' : '' }}"
+                                    href="#">Usuarios</a>
+                            </li>
+                            <li class="nav-item {{ request()->is('productos-nuevos.crear') ? 'active' : '' }}">
+                                <a class="nav-link {{ request()->is('productos-nuevos.crear') ? 'nav-link-active' : '' }}"
+                                    href="#">Productos</a>
+                            </li>
+                            <li class="nav-item {{ request()->is('productos-nuevos.crear') ? 'active' : '' }}">
+                                <a class="nav-link {{ request()->is('productos-nuevos.crear') ? 'nav-link-active' : '' }}"
+                                    href="#">Productos Solicitados</a>
+                            </li>
+                        @endif
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ auth()->user()->name }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ route('selectRole') }}">Seleccionar Rol</a></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                    @endauth
+
+
+
+
                 </ul>
             </div>
         </div>
@@ -96,7 +113,7 @@
 
     <!-- Secondary Navigation (Dropdowns para CRUDs) -->
 
-    @if (str_contains(request()->path(), 'usuarios')||str_contains(request()->path(), 'roles'))
+    @if (str_contains(request()->path(), 'usuarios') || str_contains(request()->path(), 'roles'))
         <nav class="navbar secondary-navigation navbar-expand navbar-light bg-light">
             <div class="container-fluid">
                 <ul class="navbar-nav">
@@ -140,8 +157,8 @@
                 <ul class="navbar-nav">
                     <!-- Dropdown de Productos -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link submenu dropdown-toggle" href="#" id="productosDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link submenu dropdown-toggle" href="#" id="productosDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Productos
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="productosDropdown">
@@ -234,30 +251,29 @@
     @endif
 
     @if (str_contains(request()->path(), 'productos-nuevos'))
+        <nav class="navbar secondary-navigation navbar-expand navbar-light bg-light">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                    <!-- Enlace para registrar un nuevo producto -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('productos-nuevos.crear') }}">Registrar Producto</a>
+                    </li>
 
-    <nav class="navbar secondary-navigation navbar-expand navbar-light bg-light">
-        <div class="container-fluid">
-            <ul class="navbar-nav">
-                <!-- Enlace para registrar un nuevo producto -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('productos-nuevos.crear') }}">Registrar Producto</a>
-                </li>
+                    <!-- Enlace para listar todos los productos nuevos -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('productos-nuevos.show') }}">Listar Productos </a>
+                    </li>
 
-                <!-- Enlace para listar todos los productos nuevos -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('productos-nuevos.show')}}">Listar Productos </a>
-                </li>
+                    <!-- Enlace para revisar productos nuevos -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Revisar Productos </a>
+                    </li>
 
-                <!-- Enlace para revisar productos nuevos -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Revisar Productos </a>
-                </li>
-
-                <!-- Agrega más enlaces según tus necesidades -->
-            </ul>
-        </div>
-    </nav>
-@endif
+                    <!-- Agrega más enlaces según tus necesidades -->
+                </ul>
+            </div>
+        </nav>
+    @endif
 
 
 
@@ -268,38 +284,37 @@
     <!-- Script necesario para el funcionamiento de Bootstrap y el Offcanvas -->
 
     <!-- Script necesario para el funcionamiento de Bootstrap y el Offcanvas -->
-<script>
-    // Función para agregar la clase "active" al menú principal y menús desplegables del Secondary Navigation
-    function setActiveMenus() {
-        const currentPath = window.location.pathname; // Obtiene la ruta actual
-        const mainMenuLinks = document.querySelectorAll('.navbar-nav .nav-link');
-        const dropdownMenuLinks = document.querySelectorAll('.dropdown-menu .dropdown-item');
+    <script>
+        // Función para agregar la clase "active" al menú principal y menús desplegables del Secondary Navigation
+        function setActiveMenus() {
+            const currentPath = window.location.pathname; // Obtiene la ruta actual
+            const mainMenuLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const dropdownMenuLinks = document.querySelectorAll('.dropdown-menu .dropdown-item');
 
-        mainMenuLinks.forEach(link => {
-            const linkPath = link.getAttribute('href');
-            if (currentPath === linkPath) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
+            mainMenuLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (currentPath === linkPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
 
-        dropdownMenuLinks.forEach(link => {
-            const linkPath = link.getAttribute('href');
-            if (currentPath === linkPath) {
-                const dropdownToggle = link.closest('.dropdown').querySelector('.dropdown-toggle');
-                dropdownToggle.classList.add('active');
-            }
-        });
-    }
+            dropdownMenuLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (currentPath === linkPath) {
+                    const dropdownToggle = link.closest('.dropdown').querySelector('.dropdown-toggle');
+                    dropdownToggle.classList.add('active');
+                }
+            });
+        }
 
-    // Ejecuta la función cuando se carga la página y también cuando cambia de página
-    document.addEventListener('DOMContentLoaded', setActiveMenus);
-    window.addEventListener('popstate', setActiveMenus);
-
-
-</script>
+        // Ejecuta la función cuando se carga la página y también cuando cambia de página
+        document.addEventListener('DOMContentLoaded', setActiveMenus);
+        window.addEventListener('popstate', setActiveMenus);
+    </script>
 
 
 </body>
+
 </html>

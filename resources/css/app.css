@@ -1,8 +1,5 @@
 /* styles.css o tu archivo CSS personalizado */
-.content {
 
-
-  }
   /* Estilos para el navbar principal */
 .navbar.bg-custom {
     background-color: #002652;
@@ -10,6 +7,10 @@
     color:#ffffff /* Ajusta el valor para cambiar la altura */
 }
  /* Estilos para el ícono del botón de navegación */
+ .align-vertical {
+    display: flex;
+    align-items: center;
+}
  .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='orange' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M1 4h14M1 8h14M1 12h14'/%3E%3C/svg%3E");
 }
@@ -156,4 +157,9 @@ button[type="submit"]:hover {
 
 .btn-eliminar{
     background-color: #ff0000;
+}
+
+
+.logonv {
+    height: 29px;
 }
