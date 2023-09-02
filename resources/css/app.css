@@ -116,8 +116,8 @@ button[type="submit"]:hover {
 
 /* Estilos para el enlace activo */
 .navbar-dark .navbar-nav .nav-link-active {
-    color: orange;
-    /* Puedes ajustar otros estilos aquí, como el fondo o los bordes */
+    color:#f76300;
+   font-weight: bold; /* Puedes ajustar otros estilos aquí, como el fondo o los bordes */
 }
 
 

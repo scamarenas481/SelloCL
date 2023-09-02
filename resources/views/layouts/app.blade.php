@@ -47,21 +47,19 @@
                         <!-- AQUI VAMOS A PORNER EL CONTENIDO DE LOS INICIOS DE CADA TIPO DE ROL -->
                         @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Ventas')
                         <li class="nav-item align-vertical">
-                                <a class="navbar-brand" href="{{ url('/') }}">
-                                    <img name="logonv" class="logonv" src="{{ asset('images/sello-de-la-casa.png') }}" alt="Logo de la Empresa">
+                                <a class="navbar-brand" href="{{ url('/home') }}">
+                                    <img name="logonv" class="logonv" src="{{ asset('images/COM1.svg') }}" alt="Logo de la Empresa">
                                 </a>
                             </li>
                         @endif
                         @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Administrador')
                         <li class="nav-item align-vertical">
-                            <a class="navbar-brand" href="{{ url('/') }}">
-                                <img name="logonv" class="logonv" src="{{ asset('images/sello-de-la-casa.png') }}" alt="Logo de la Empresa">
+                            <a class="navbar-brand" href="{{ url('/home') }}">
+                                <img name="logonv" class="logonv" src="{{ asset('images/COM1.svg') }}" alt="Logo de la Empresa">
                             </a>
                         </li>
                         @endif
-                        <li class="nav-item align-vertical">
-                            <span class="navbar-text">Rol: {{ auth()->user()->activeRole->name }}</span>
-                        </li>
+
                         @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Ventas')
                             <li class="nav-item {{ request()->is('productos-nuevos.crear') ? 'active' : '' }}">
                                 <a class="nav-link {{ request()->is('productos-nuevos.crear') ? 'nav-link-active' : '' }}"
@@ -70,10 +68,12 @@
                         @endif
 
                         @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Administrador')
-                            <li class="nav-item {{ request()->is('usuarios') ? 'active' : '' }}">
-                                <a class="nav-link {{ request()->is('usuarios') ? 'nav-link-active' : '' }}"
-                                    href="#">Usuarios</a>
-                            </li>
+                        <li class="nav-item {{ str_starts_with(request()->path(), 'users') || str_starts_with(request()->path(), 'roles') ? 'active' : '' }}">
+                            <a class="nav-link {{ str_starts_with(request()->path(), 'users') || str_starts_with(request()->path(), 'roles') ? 'nav-link-active' : '' }}"
+                                href="users">Usuarios</a>
+                        </li>
+
+
                             <li class="nav-item {{ request()->is('productos-nuevos.crear') ? 'active' : '' }}">
                                 <a class="nav-link {{ request()->is('productos-nuevos.crear') ? 'nav-link-active' : '' }}"
                                     href="#">Productos</a>
@@ -83,9 +83,16 @@
                                     href="#">Productos Solicitados</a>
                             </li>
                         @endif
-                        <li class="nav-item dropdown">
+                </ul>
+                <ul class="navbar-nav flex-row flex-wrap ms-md-auto" >
+                    <li class="nav-item align-vertical">
+                        <span class="navbar-text">Rol: {{ auth()->user()->activeRole->name }}</span>
+                    </li>
+                    <div style="align-items: flex-end">
+                        <li class="nav-item ">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ asset('images/bitmap.svg') }}" alt="Avatar del Usuario" class="user-avatar" style="width: 25px">
                                 {{ auth()->user()->name }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -98,22 +105,14 @@
                                 </li>
                             </ul>
                         </li>
-
-
+                    </div>
                     @endauth
-
-
-
-
                 </ul>
             </div>
         </div>
     </nav>
-
-
     <!-- Secondary Navigation (Dropdowns para CRUDs) -->
-
-    @if (str_contains(request()->path(), 'usuarios') || str_contains(request()->path(), 'roles'))
+    @if (str_contains(request()->path(), 'users') || str_contains(request()->path(), 'roles'))
         <nav class="navbar secondary-navigation navbar-expand navbar-light bg-light">
             <div class="container-fluid">
                 <ul class="navbar-nav">
@@ -125,13 +124,10 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="usuariosDropdown">
                             <!-- Agrega los enlaces del CRUD de Usuarios aquí -->
-                            <li><a class="dropdown-item" href="#">Crear Usuario</a></li>
-                            <li><a class="dropdown-item" href="#">Listar Usuarios</a></li>
-                            <li><a class="dropdown-item" href="#">Actualizar Usuario</a></li>
-                            <li><a class="dropdown-item" href="#">Eliminar Usuario</a></li>
+                            <li><a class="dropdown-item" href="{{ route('users.create') }}">Crear Usuario</a></li>
+                            <li><a class="dropdown-item" href="{{ route('users.index') }}">Listar Usuarios</a></li>
                         </ul>
                     </li>
-
                     <!-- Dropdown de Roles -->
                     <li class="nav-item dropdown">
                         <a class="nav-link submenu dropdown-toggle" href="#" id="rolesDropdown" role="button"
@@ -142,8 +138,6 @@
                             <!-- Agrega los enlaces del CRUD de Roles aquí -->
                             <li><a class="dropdown-item" href="{{ route('roles.create') }}">Crear Rol</a></li>
                             <li><a class="dropdown-item" href="{{ route('roles.index') }}">Listar Roles</a></li>
-                            <li><a class="dropdown-item" href="#">Actualizar Rol</a></li>
-                            <li><a class="dropdown-item" href="#">Eliminar Rol</a></li>
                         </ul>
                     </li>
                 </ul>
