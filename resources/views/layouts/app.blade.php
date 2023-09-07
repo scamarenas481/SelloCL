@@ -63,7 +63,7 @@
                         @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Ventas')
                             <li class="nav-item {{ request()->is('productos-nuevos.crear') ? 'active' : '' }}">
                                 <a class="nav-link {{ request()->is('productos-nuevos.crear') ? 'nav-link-active' : '' }}"
-                                    href="#">Productos Solicitados</a>
+                                    href="{{ route('productos-nuevos.crear') }}">Productos Solicitados</a>
                             </li>
                         @endif
 

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-
+use App\Http\Controllers\ProductoNuevoController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +25,25 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
+
+Route::get('/productos/productos-nuevos', [ProductoNuevoController::class, 'index'])->name('productos-nuevos');
+// Ruta para mostrar el formulario de creación de productosnuevos (create)
+Route::get('/productos/productos-nuevos/crear', [ProductoNuevoController::class, 'create'])->name('productos-nuevos.crear'); // Cambio en el nombre de la ruta
+
+// Ruta para guardar un nuevo porducto en la base de datos (store)
+Route::post('/productos/productos-nuevos', [ProductoNuevoController::class, 'store'])->name('productos-nuevos.store');
+Route::post('/productos-nuevos-internos', [ProductoNuevoController::class, 'storeInterno'])->name('productos-nuevos.storeInterno');
+
+// Ruta para buscar un producto interno en el Sistema.
+Route::get('/buscar-productos', [ProductoNuevoController::class, 'buscarProductos'])->name('buscarProductos');
+Route::get('/productos/productos-nuevos/show', [ProductoNuevoController::class, 'show'])->name('productos-nuevos.show');
+
+
+
+
+
+
+
 Route::group(['middleware' => ['auth']], function () {
     // Rutas para gestionar usuarios
     });
@@ -41,6 +60,8 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 
 Route::middleware(['role:Ventas'])->group(function () {
     Route::get('/home/vendedor', function () {
@@ -72,5 +93,9 @@ Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
 Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
 Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+
+
+
 });
 
