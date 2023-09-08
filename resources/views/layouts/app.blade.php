@@ -44,7 +44,7 @@
                 <!-- Aquí puedes agregar el contenido del sidebar, por ejemplo, enlaces a diferentes secciones -->
                 <ul class="navbar-nav">
                     @auth
-                        <!-- AQUI VAMOS A PORNER EL CONTENIDO DE LOS INICIOS DE CADA TIPO DE ROL -->
+                        <!-- AQUI VAMOS A PORNER EL CONTENIDO DE LOS INICIOS DE CADA TIPO DE ROL (manejar variables de sesion-->
                         @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Ventas')
                         <li class="nav-item align-vertical">
                                 <a class="navbar-brand" href="{{ url('/home') }}">
@@ -69,8 +69,8 @@
 
                         @if (auth()->user()->activeRole && auth()->user()->activeRole->name === 'Administrador')
                         <li class="nav-item {{ str_starts_with(request()->path(), 'users') || str_starts_with(request()->path(), 'roles') ? 'active' : '' }}">
-                            <a class="nav-link {{ str_starts_with(request()->path(), 'users') || str_starts_with(request()->path(), 'roles') ? 'nav-link-active' : '' }}"
-                                href="users">Usuarios</a>
+                            <a class="nav-link {{ str_starts_with(request()->path(), 'users') || str_starts_with(request()->path(), 'roles') ? 'nav-linktttest@test.comest@test.comest@test.com-active' : '' }}"
+                                href="{{route('users.index')}}">Usuarios</a>
                         </li>
 
 
@@ -80,7 +80,7 @@
                             </li>
                             <li class="nav-item {{ request()->is('productos-nuevos.crear') ? 'active' : '' }}">
                                 <a class="nav-link {{ request()->is('productos-nuevos.crear') ? 'nav-link-active' : '' }}"
-                                    href="#">Productos Solicitados</a>
+                                    href="{{ route('productos-nuevos.crear') }}">Productos Solicitados</a>
                             </li>
                         @endif
                 </ul>
